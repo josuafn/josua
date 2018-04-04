@@ -1,0 +1,32 @@
+SMP NEGERI
+{lat: -5.376526, lng: 105.221946},// SMPN 2 BDL
+
+{lat: -5.372627, lng: 105.239891},// SMPN 22 BDL
+
+{lat: -5.392503, lng: 105.248475},// SMPN 10 BDL
+ 
+{lat: -5.380294, lng: 105.284759},// SMPN 29 BDL
+
+SMP SWASTA
+{lat: -5.404805, lng: 105.258178},// SMP Fransiskus
+
+{lat: -5.372337, lng: 105.276925},// SMP gajah mada
+
+{lat: -5.415790, lng: 105.255583},// SMP Taman Siswa 2
+	
+
+SMP LUAR BIASA
+{lat: -5.403876, lng: 105.200508},// SLB Dharma Bhakti
+
+{lat: -5.384248, lng: 105.221224} // SLBIT Baitul Jannah
+        
+SMP ISLAM TERPADU        
+{lat: -5.380260, lng: 105.241118},// SMP IT AR RAIHAN BDL
+         
+        
+      
+       
+		
+	
+
+		
