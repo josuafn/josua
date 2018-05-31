@@ -6,6 +6,13 @@ SMP NEGERI
 {lat: -5.392503, lng: 105.248475},// SMPN 10 BDL
  
 {lat: -5.380294, lng: 105.284759},// SMPN 29 BDL
+ 
+{lat: -5.421178, lng: 105.264773},// SMPN 1 BDL
+ 
+{lat: -5.426762, lng: 105.253766},// SMPN 9 BDL
+ 
+{lat: -5.377370, lng: 105.311810},// SMPN 24 BDL
+
 
 SMP SWASTA
 {lat: -5.404805, lng: 105.258178},// SMP Fransiskus
@@ -13,6 +20,15 @@ SMP SWASTA
 {lat: -5.372337, lng: 105.276925},// SMP gajah mada
 
 {lat: -5.415790, lng: 105.255583},// SMP Taman Siswa 2
+
+{lat: -5.450704, lng: 105.255525},// SMP Bodhisattva
+
+{lat: -5.441810, lng: 105.267169},// SMP Xaverius 1 BDL
+
+{lat: -5.428925, lng: 105.267121},// SMP Advent
+
+{lat: -5.429571, lng: 105.263778},// SMP Immanuel
+
 	
 
 SMP LUAR BIASA
