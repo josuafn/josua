@@ -4,17 +4,18 @@
         <style>
             #map {
                 background-color: gray;
-                width: 400px;
-                height: 400px;
+                width: 1350px;
+                height: 500px;
             }
         </style>
     </head>
     <body>
+        <h3 style="text-align:center;">simple marker</h3>
         <div id="map"></div>
     </body>
     <script>
         function initMap(){
-            var ilkom = {lat:-5.367284,lng:105.244935};
+            var ilkom = {lat:-6.176151,lng:106.822940};
             var map=new google.maps.Map(document.getElementById('map'),{zoom:13,center:ilkom});
             console.log(map);
             var infowindow = new google.maps.InfoWindow();
