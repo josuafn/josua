@@ -1,0 +1,182 @@
+<html>
+    <head>
+        <title>SIG Sekolah Menengah Pertama</title>
+        <img src="logosmp.png" height= "100px" width= "80px" style="float:left;margin:0 20px 3px 0" border= "2px" margin-left = "20px" /> <h2>SISTEM INFORMASI GEOGRAFIS</h2><h3>SEKOLAH MENENGAH PERTAMA DI BANDAR LAMPUNG</h3>
+        
+        <style>
+            h1 {
+                color: black;
+                font-family: Times;
+            }
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 600px;
+            }
+            body {
+                background-color: lavender;
+                width: 100%;
+            }
+            #legend {
+                font-family: Arial, sans-serif;
+                background: #fff;
+                border: 3px solid #000;
+                width: 130px;
+                margin-top: 5px;
+            }       
+            #legend h3 {
+                margin-top: 0;
+            }
+            #legend img {
+                vertical-align: middle;
+            }   
+            #floating-panel {
+                position: absolute;
+                top: 300px;
+                right: 0.3%;
+                z-index: 5;
+                padding: 2px;
+                text-align: center;
+                font-family: 'Roboto','sans-serif';
+                line-height: 30px;
+                padding-left: 8px;
+            }
+        </style>
+
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+    </head>
+    <br> <br>
+
+    <body>
+        <div id='cssmenu'>
+            <ul>
+                <li><a href='Home.html'><span>Menu Awal</span></a></li>
+
+                <li><a href='index.php'><span>Pencarian Data</span></a>
+                </li>
+
+                <li><a href='kecamatan.html'>Pilihan SMP (Kecamatan)</span></a>
+                </li>
+                
+                <li class='active has-sub'><a href='#'><span>Pilihan SMP (Status)</span></a>
+                    <ul>
+                       <li><a href='SMP Negeri.html'><span>SMP Negeri</span></a>
+                       </li>
+                       <li><a href='SMP Swasta.html'><span>SMP Swasta</span></a>
+                       </li>
+                       <li><a href='SMP Luar Biasa.html'><span>SMP Luar Biasa</span></a>
+                       </li>
+                    </ul>
+                  </li>
+                  
+                  <li><a href='direction.html'><span>Petunjuk Arah</span></a></li>
+
+                  <li><a href='Image Overlay.html'><span>Image Overlay</span></a></li>
+
+                 <li class='last'><a href='Tentang Kami.html'><span>Tentang Kami</span></a></li>
+              </ul>
+            </div>
+
+                    <br>
+
+                    <h2><center>SEKOLAH MENENGAH PERTAMA (KECAMATAN KEMILING)</center></h2>
+
+                    <div id = "map"></div>
+   
+                    <div id="floating-panel">
+      
+                            <div id="legend"><h5><b>Legend</b></h5>
+                                <table>
+                                                <tr>
+                                                    <td><img src="images/pin.png" width="20px"><img></td>
+                                                    <td><font size="2px">Cluster</font></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="images/m2.png" width="20px"><img></td>
+                                                    <td><font size="2px">Cluster Marker</font></td>
+                                                </tr>
+                                            </table>    
+                            </div>
+    </body>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+    <script>
+    var map = null;
+    var center = {lat:-5.367284, lng:105.244935};
+    var infowindow;
+
+    var config = {
+        apiKey: "AIzaSyDEPESF4fs9Jw_1tV0oTIVGohMLBFspJ98",
+        authDomain: "kemiling-3d297.firebaseapp.com",
+        databaseURL: "https://kemiling-3d297.firebaseio.com",
+        projectId: "kemiling-3d297",
+        storageBucket: "kemiling-3d297.appspot.com",
+        messagingSenderId: "51797660461"
+    };
+    firebase.initializeApp(config);
+
+    var db = firebase.database();
+    var dataRef = db.ref('Kemiling');
+
+    dataRef.on('value', showData, showError);
+    function showData(data){
+        // console.log(data.val());
+        map.data.addGeoJson(data.val());
+        map.data.setStyle({
+            fillColor: '#00FFFF',
+            strokeWeight: 0.3
+        });
+        map.data.addListener('click', function(event){
+            infoWindowContent = event.feature.getProperty('DESA');
+            infowindow.setContent(infoWindowContent);
+            infowindow.setPosition(event.latLng);
+            infowindow.open(map);
+        });
+    }
+    function showError(err){
+        console.log(err);
+    }
+
+    function initMap(){
+        var lampung={lat: -4.558585, lng: 105.406808};
+        map = new google.maps.Map(document.getElementById('map'),{
+            zoom: 10,
+            center: center
+        });
+        var infoWin = new google.maps.InfoWindow();
+	// Add some markers to the map.
+	// Note: The code uses the JavaScript Array.prototype.map() method to
+	// create an array of markers based on a given "locations" array.
+	// The map() method here has nothing to do with the Google Maps API.
+	var markers = locations.map(function(location, i) {
+    var marker = new google.maps.Marker({position: location});
+
+    google.maps.event.addListener(marker, 'click', function(evt){
+	infoWin.setContent(location.info);
+	infoWin.open(map, marker);
+	})
+    return marker;
+	});
+    // Add a marker clusterer to manage the markers.
+	var markerCluster = new MarkerClusterer(map, markers, {
+    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+	});
+    }
+    var locations = [
+        {lat: -5.403876, lng: 105.200508, info: "<h3>SLB Dharma Bhakti Dharma Pertiwi, Akreditasi : -</h3> <p>Alamat: Jl. Teku Cik Ditiro No.1, Beringin Raya, Kec. Kemiling (35158)"},
+        {lat: -5.384248, lng: 105.221224, info: "<h3>SLB IT Baitul Jannah, Akreditasi : -</h3> <p>Alamat: Jl. Pramuka No.43, Sumber Rejo, Kec. Kemiling (35153)"},
+        {lat: -5.388633, lng: 105.212096, info: "<h3>SMP Al-Husna, Akreditasi : -</h3> <p>Alamat: Jl. Imam Bonjol Gg. Terong No. 20 Bkp, Kec. Kemiling (35153)"},
+        {lat: -5.397448, lng: 105.194561, info: "<h3>SMP Maruja Pinang Jaya, Akreditasi : C</h3> <p>Alamat: Jl. Cendrawasih No 16 , Pinang Jaya, Kec. Kemiling (35153)"},
+      ]
+
+	google.maps.event.addDomListener(window, "load", initMap);
+	</script>
+
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgguC6i63tqFRC_6V86XosB4gCmBM8mRU&callback=initMap"></script>    
+   <script src="src/markerclusterer.js">
+   </script>
+</html>
