@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <title>SIG Sekolah Menengah Pertama</title>
+        <img src="logosmp.png" height= "100px" width= "80px" style="float:left;margin:0 20px 3px 0" border= "2px" margin-left = "20px" /> <h2>SISTEM INFORMASI GEOGRAFIS</h2><h3>SEKOLAH MENENGAH PERTAMA DI BANDAR LAMPUNG</h3>
+        
+        <style>
+            h1 {
+                color: black;
+                font-family: Times;
+            }
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 600px;
+            }
+            body {
+                background-color: lavender;
+                width: 100%;
+            }
+        </style>
+
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+    </head>
+    <br> <br>
+
+    <body>
+        <div id='cssmenu'>
+            <ul>
+                <li><a href='Home.html'><span>Menu Awal</span></a></li>
+
+                <li><a href='index.php'><span>Pencarian Data</span></a>
+                </li>
+
+                <li><a href='kecamatan.html'>Pilihan SMP (Kecamatan)</span></a>
+                </li>
+                
+                <li class='active has-sub'><a href='#'><span>Pilihan SMP (Status)</span></a>
+                    <ul>
+                       <li><a href='SMP Negeri.html'><span>SMP Negeri</span></a>
+                       </li>
+                       <li><a href='SMP Swasta.html'><span>SMP Swasta</span></a>
+                       </li>
+                       <li><a href='SMP Luar Biasa.html'><span>SMP Luar Biasa</span></a>
+                       </li>
+                    </ul>
+                  </li>
+                  
+                  <li><a href='direction.html'><span>Petunjuk Arah</span></a></li>
+
+                  <li><a href='Image Overlay.html'><span>Image Overlay</span></a></li>
+
+                 <li class='last'><a href='Tentang Kami.html'><span>Tentang Kami</span></a></li>
+              </ul>
+            </div>
+
+            <h2><center>SEKOLAH MENENGAH PERTAMA (SMP FRANSISKUS)</center></h2>
+
+            <table rules="none" width="750px" height = "300px" align = "center" cellspacing="1" border-radius = "0">
+                    <tr>
+                        <td width ="400" height ="250">
+                        <div id = "map"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td height="50" align="left">
+                        </td>
+                    </tr>
+    </body>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAICvEJEVcEqp6JxtFoP8YsvaCZ5lRjl-s"></script>
+          <body> 
+          <script>
+      
+            var overlay;
+            USGSOverlay.prototype = new google.maps.OverlayView();
+      
+            // Initialize the map and the custom overlay.
+      
+            function initMap() {
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: {lat: -5.3971396, lng: 105.2667887},
+                mapTypeId: 'roadmap'
+              });
+      
+              var bounds = new google.maps.LatLngBounds(
+                  new google.maps.LatLng(-5.4349129,105.1825665),
+                  new google.maps.LatLng(-5.404805,105.258178));
+      
+              var srcImage = 'SMP Fransiskus.jpg';
+              overlay = new USGSOverlay(bounds, srcImage, map);
+            }
+      
+            function USGSOverlay(bounds, image, map) {
+      
+              this.bounds_ = bounds;
+              this.image_ = image;
+              this.map_ = map;
+              this.div_ = null;
+              this.setMap(map);
+            }
+            USGSOverlay.prototype.onAdd = function() {
+      
+              var div = document.createElement('div');
+              div.style.borderStyle = 'none';
+              div.style.borderWidth = '0px';
+              div.style.position = 'absolute';
+      
+              var img = document.createElement('img');
+              img.src = this.image_;
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.position = 'absolute';
+              div.appendChild(img);
+      
+              this.div_ = div;
+      
+              // Add the element to the "overlayLayer" pane.
+              var panes = this.getPanes();
+              panes.overlayLayer.appendChild(div);
+            };
+      
+            USGSOverlay.prototype.draw = function() {
+              var overlayProjection = this.getProjection();
+              var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+              var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+      
+              var div = this.div_;
+              div.style.left = sw.x + 'px';
+              div.style.top = ne.y + 'px';
+              div.style.width = (ne.x - sw.x) + 'px';
+              div.style.height = (sw.y - ne.y) + 'px';
+            };
+      
+            USGSOverlay.prototype.onRemove = function() {
+              this.div_.parentNode.removeChild(this.div_);
+              this.div_ = null;
+            };
+      
+            google.maps.event.addDomListener(window, 'load', initMap);
+          </script>
+      
+</html>
